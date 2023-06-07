@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "592140630811",
+    "project_id": "wallhavenauth",
+    "storage_bucket": "wallhavenauth.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:592140630811:android:908553ce65b1291b1c71be",
+        "android_client_info": {
+          "package_name": "com.example.wallhaven"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "592140630811-kquqk6vmothpp2l33t6d5j0rl4qc6p7g.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC2kDFd9J7j_In6hDUyXpXfbbFadtPYvAc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "592140630811-kquqk6vmothpp2l33t6d5j0rl4qc6p7g.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
