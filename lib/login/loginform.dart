@@ -1,5 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:wallhaven/forgotpassword/forgotpage.dart';
+import 'package:wallhaven/home.dart';
 import '../register/registerpage.dart';
 
 import '../auth/auth.dart';
@@ -17,8 +19,65 @@ class _LoginFormState extends State<LoginForm> {
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   String? errorMessage = '';
+  bool isSigningIn = false;
 
   // print(emailController.text)
+
+  Future<void> googleSignIn({required BuildContext context}) async {
+    setState(() {
+      isSigningIn = true;
+    });
+
+    //On Tap Login Here;
+    User? user = await Auth().signInWithGoogle(context: context);
+
+    setState(() {
+      isSigningIn = false;
+    });
+
+    if (user != null) {
+      // ignore: use_build_context_synchronously
+      Navigator.of(context).pushReplacement(MaterialPageRoute(
+        builder: (context) => HomePage(),
+      ));
+    }
+  }
+
+  Route _forgotPasswordRoute() {
+    return PageRouteBuilder(
+        pageBuilder: (context, animation, secondaryAnimation) =>
+            const ForgotPassword(),
+        transitionsBuilder: (context, animation, secondaryAnimation, child) {
+          const begin = Offset(0.0, 1.0);
+          const end = Offset.zero;
+          const curve = Curves.ease;
+
+          var tween =
+              Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
+          return SlideTransition(
+            position: animation.drive(tween),
+            child: child,
+          );
+        });
+  }
+
+  Route _registerRoute() {
+    return PageRouteBuilder(
+        pageBuilder: (context, animation, secondaryAnimation) =>
+            const RegisterPage(),
+        transitionsBuilder: (context, animation, secondaryAnimation, child) {
+          const begin = Offset(0.0, 1.0);
+          const end = Offset.zero;
+          const curve = Curves.ease;
+
+          var tween =
+              Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
+          return SlideTransition(
+            position: animation.drive(tween),
+            child: child,
+          );
+        });
+  }
 
   //ignore: unused_element
   Future<void> signInWithEmailAndPassrod() async {
@@ -88,7 +147,9 @@ class _LoginFormState extends State<LoginForm> {
           ),
           const SizedBox(height: 16.0),
           InkWell(
-            onTap: () {},
+            onTap: () {
+              Navigator.of(context).push(_forgotPasswordRoute());
+            },
             child: const Text(
               "Forgot Password?",
               style: TextStyle(color: Colors.grey),
@@ -117,10 +178,7 @@ class _LoginFormState extends State<LoginForm> {
           InkWell(
             highlightColor: Colors.transparent,
             onTap: () {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => const RegisterPage()));
+              Navigator.of(context).push(_registerRoute());
             },
             child: RichText(
               textAlign: TextAlign.center,
@@ -160,8 +218,8 @@ class _LoginFormState extends State<LoginForm> {
             height: 20.0,
           ),
           GestureDetector(
-            onTap: () {
-              //On Tap Login Here;
+            onTap: () async {
+              await googleSignIn(context: context);
             },
             child: const Row(
               mainAxisAlignment: MainAxisAlignment.center,

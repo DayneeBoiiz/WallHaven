@@ -1,16 +1,14 @@
 import 'package:flutter/material.dart';
-// import 'package:http/http.dart' as http;
+import 'package:wallhaven/forgotpassword/forgotform.dart';
 
-import 'loginform.dart';
-
-class LoginPage extends StatefulWidget {
-  const LoginPage({super.key});
+class ForgotPassword extends StatefulWidget {
+  const ForgotPassword({super.key});
 
   @override
-  State<LoginPage> createState() => _LoginPageState();
+  State<ForgotPassword> createState() => _ForgotPasswordState();
 }
 
-class _LoginPageState extends State<LoginPage> {
+class _ForgotPasswordState extends State<ForgotPassword> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -39,7 +37,7 @@ class _LoginPageState extends State<LoginPage> {
                     // right: 20,
                     top: 245), //apply padding to some sides only
                 child: Text(
-                  "Login",
+                  "Forgot Password",
                   style: TextStyle(
                       color: Colors.white,
                       fontSize: 34,
@@ -49,9 +47,8 @@ class _LoginPageState extends State<LoginPage> {
               ),
             ),
             const Padding(
-              padding: EdgeInsets.only(left: 30.0, right: 30.0, top: 300.0),
-              child: LoginForm(),
-            )
+                padding: EdgeInsets.only(left: 30.0, right: 30.0, top: 300.0),
+                child: ForgotPasswordForm())
           ],
         ));
   }

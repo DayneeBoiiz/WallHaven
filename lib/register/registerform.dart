@@ -1,7 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-
 import '../auth/auth.dart';
 import '../login/loginpage.dart';
 
@@ -19,6 +17,24 @@ class _RegisterFormState extends State<RegisterForm> {
   TextEditingController passwordController = TextEditingController();
   TextEditingController nameController = TextEditingController();
   String? errorMessage = '';
+
+  Route _loginRoute() {
+    return PageRouteBuilder(
+        pageBuilder: (context, animation, secondaryAnimation) =>
+            const LoginPage(),
+        transitionsBuilder: (context, animation, secondaryAnimation, child) {
+          const begin = Offset(0.0, 1.0);
+          const end = Offset.zero;
+          const curve = Curves.ease;
+
+          var tween =
+              Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
+          return SlideTransition(
+            position: animation.drive(tween),
+            child: child,
+          );
+        });
+  }
 
   Future<void> registerWithEmailAndPassword() async {
     final email = emailController.text;
@@ -137,8 +153,7 @@ class _RegisterFormState extends State<RegisterForm> {
             child: InkWell(
               highlightColor: Colors.transparent,
               onTap: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => const LoginPage()));
+                Navigator.of(context).push(_loginRoute());
               },
               child: RichText(
                 textAlign: TextAlign.center,
